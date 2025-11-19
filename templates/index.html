@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Brain Tumor Detection - Medical AI Analysis</title>
+    <meta name="description"
+        content="Fast, reliable, and accurate brain tumor identification from MRI scans using advanced AI and deep learning technology. Upload your MRI for instant analysis.">
+    <meta name="author" content="Medical AI Solutions">
+
+    <meta property="og:title" content="AI-Powered Brain Tumor Detection - Medical AI Analysis">
+    <meta property="og:description"
+        content="Fast, reliable, and accurate brain tumor identification from MRI scans using advanced AI and deep learning technology.">
+    <meta property="og:type" content="website">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            /* enables smooth scrolling */
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, hsl(210, 100%, 60%), hsl(210, 100%, 35%));
+            color: white;
+            min-height: 100vh;
+            line-height: 1.6;
+
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            opacity: 0.9;
+            max-width: 48rem;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-button {
+            display: inline-block;
+            background: white;
+            color: hsl(210, 100%, 50%);
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hero-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px -10px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: white;
+            color: hsl(222.2, 84%, 4.9%);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 4rem;
+            height: 4rem;
+            background: hsl(210, 100%, 50%, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: hsl(215.4, 16.3%, 46.9%);
+            font-size: 0.9rem;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            max-width: 48rem;
+            margin: 0 auto 4rem;
+        }
+
+        .upload-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .upload-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-header p {
+            opacity: 0.8;
+        }
+
+        .upload-zone {
+            background: white;
+            color: hsl(222.2, 84%, 4.9%);
+            padding: 3rem 2rem;
+            border: 2px dashed hsl(214.3, 31.8%, 91.4%);
+            border-radius: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-zone:hover,
+        .upload-zone.drag-over {
+            border-color: hsl(210, 100%, 50%);
+            color: white;
+            background: hsl(210, 100%, 50%, 0.05);
+            box-shadow: 0 10px 30px -10px hsl(210, 100%, 50%, 0.3);
+        }
+
+        .upload-zone.analyzing {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .upload-icon {
+            width: 4rem;
+            height: 4rem;
+            background: hsl(210, 100%, 50%, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: hsl(210, 100%, 50%);
+        }
+
+        .upload-button {
+            background: hsl(210, 100%, 50%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .upload-button:hover {
+            background: hsl(0, 0%, 100%);
+            color: black;
+        }
+
+        .upload-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* Loading Section */
+        .loading-section {
+            text-align: center;
+            max-width: 32rem;
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+
+        .loading-icon {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .brain-icon {
+            width: 5rem;
+            height: 5rem;
+            background: hsl(210, 100%, 50%, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: hsl(210, 100%, 50%);
+            animation: pulse-medical 2s ease-in-out infinite;
+        }
+
+        .spinner {
+            position: absolute;
+            bottom: -0.5rem;
+            right: -0.5rem;
+            width: 2rem;
+            height: 2rem;
+            border: 2px solid transparent;
+            border-top: 2px solid hsl(210, 100%, 50%);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 20rem;
+            height: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0.25rem;
+            overflow: hidden;
+            margin: 2rem auto 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: white;
+            border-radius: 0.25rem;
+            animation: progress 3s ease-out;
+        }
+
+        /* Results Section */
+        .results-section {
+            max-width: 64rem;
+            margin: 0 auto;
+            animation: float-up 0.5s ease-out;
+        }
+
+        .results-card {
+            background: white;
+            color: hsl(222.2, 84%, 4.9%);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .results-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .results-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .mri-preview {
+            background: hsl(210, 40%, 96.1%);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .mri-preview img {
+            width: 100%;
+            height: 16rem;
+            object-fit: cover;
+        }
+
+        .results-details {
+            space-y: 1.5rem;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: hsl(210, 40%, 96.1%, 0.5);
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .status-detected {
+            background: hsl(0, 84.2%, 60.2%, 0.1);
+            color: hsl(0, 84.2%, 60.2%);
+        }
+
+        .status-clear {
+            background: hsl(120, 50%, 50%, 0.1);
+            color: hsl(120, 50%, 35%);
+        }
+
+        .confidence-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .confidence-progress {
+            width: 6rem;
+            height: 0.5rem;
+            background: hsl(210, 40%, 96.1%);
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: hsl(210, 100%, 50%);
+            border-radius: 0.25rem;
+            transition: width 1s ease-out;
+        }
+
+        .download-button {
+            background: hsl(210, 100%, 50%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1.5rem;
+            box-shadow: 0 10px 30px -10px hsl(210, 100%, 50%, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .download-button:hover {
+            background: hsl(210, 100%, 45%);
+        }
+
+        .disclaimer {
+            font-size: 0.75rem;
+            color: hsl(215.4, 16.3%, 46.9%);
+            text-align: center;
+            margin-top: 0.75rem;
+        }
+
+        /* Reset Button */
+        .reset-section {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .reset-button {
+            background: hsl(210, 100%, 50%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .reset-button:hover {
+            background: hsl(0, 0%, 98%);
+            color: black;
+        }
+
+        /* Medical Disclaimer */
+        .medical-disclaimer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .medical-disclaimer h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .medical-disclaimer p {
+            opacity: 0.8;
+            font-size: 0.875rem;
+            max-width: 32rem;
+            margin: 0 auto;
+        }
+
+        /* Animations */
+        @keyframes pulse-medical {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.7;
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes progress {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 75%;
+            }
+        }
+
+        @keyframes float-up {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .results-content {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .upload-zone {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Hidden utility classes */
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="hero-section">
+            <h1>AI-POWERED<br>BRAIN TUMOR DETECTION </h1>
+            <p>Fast, Reliable, and Accurate Tumor Identification From MRI scans using Advanced Deep Learning Technology.
+            </p>
+            <button class="hero-button" onclick="scrollToUpload()">Upload MRI Scan</button>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features-section">
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>ACCURATE DETECTION </h3>
+                <p>AI-driven models trained on large datasets ensure precision in tumor identification.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>FAST RESULTS </h3>
+                <p>Get comprehensive MRI analysis within seconds using state-of-the-art deep learning.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>SECURE AND PRIVATE </h3>
+                <p>All medical data is encrypted and processed securely to maintain confidentiality.</p>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section class="upload-section" id="upload-section">
+            <div class="upload-header">
+                <h2>UPLOAD MRI FOR ANALYSIS </h2>
+                <p>Drag & Drop Your MRI scan Or Click Below To Upload</p>
+            </div>
+
+            <div class="upload-zone" id="upload-zone" onclick="triggerUpload()">
+                <div class="upload-icon">📁</div>
+                <h3 id="upload-title">Choose MRI Image</h3>
+                <p>Supports JPEG, PNG, and other image formats</p>
+                <button class="upload-button" id="upload-button">
+                    📤 Upload MRI Scan
+                </button>
+            </div>
+
+            <input type="file" id="file-input" class="file-input" accept="image/*" onchange="handleFileSelect(event)">
+        </section>
+
+        <!-- Loading Section -->
+        <section class="loading-section hidden" id="loading-section">
+            <div class="loading-icon">
+                <div class="brain-icon">🧠</div>
+                <div class="spinner"></div>
+            </div>
+            <h2>Analyzing MRI using Deep Learning...</h2>
+            <p>Our AI model is processing your scan for tumor detection</p>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Processing neural networks...</p>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section hidden" id="results-section">
+            <div class="results-card">
+                <div class="results-header">
+                    <span id="status-icon">⚠️</span>
+                    <h2>MRI Analysis Results</h2>
+                </div>
+
+                <div class="results-content">
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">Uploaded MRI Scan</h3>
+                        <div class="mri-preview">
+                            <img id="mri-preview" src="" alt="MRI Scan">
+                        </div>
+                    </div>
+
+                    <div class="results-details">
+                        <h3 style="margin-bottom: 1rem;">Detection Results</h3>
+
+                        <div class="result-item">
+                            <span style="font-weight: 500;">Status:</span>
+                            <span class="status-badge" id="status-badge">Tumor Detected</span>
+                        </div>
+
+                        <div class="result-item" id="tumor-type-row">
+                            <span style="font-weight: 500;">Tumor Type:</span>
+                            <span style="font-weight: 600;" id="tumor-type">Glioblastoma</span>
+                        </div>
+
+                        <div class="result-item">
+                            <span style="font-weight: 500;">Confidence:</span>
+                            <div class="confidence-bar">
+                                <div class="confidence-progress">
+                                    <div class="confidence-fill" id="confidence-fill"></div>
+                                </div>
+                                <span style="font-weight: 600; color: hsl(210, 100%, 50%);"
+                                    id="confidence-text">92.5%</span>
+                            </div>
+                        </div>
+
+                        <div style="padding-top: 1.5rem; border-top: 1px solid hsl(214.3, 31.8%, 91.4%);">
+                            <button class="download-button" onclick="downloadReport()">
+                                📥 Download Report (PDF)
+                            </button>
+                            <p class="disclaimer">
+                                This analysis is for educational purposes only.
+                                Please consult medical professionals for diagnosis.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reset-section">
+                <button class="reset-button" onclick="resetAnalysis()">
+                    HOME PAGE
+                </button>
+            </div>
+        </section>
+
+        <!-- Medical Disclaimer -->
+        <section class="medical-disclaimer">
+            <h3>Important Medical Disclaimer</h3>
+            <p>
+                This AI tool is designed for educational and research purposes only.
+                It should not be used as a substitute for professional medical diagnosis,
+                treatment, or advice. Always consult with qualified healthcare professionals
+                for medical decisions and diagnosis.
+            </p>
+        </section>
+    </div>
+
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        let currentResults = null;
+
+        // Mock analysis results
+        const mockResults = [
+            {
+                status: 'detected',
+                tumorType: 'Glioblastoma',
+                confidence: 92.5
+            },
+            {
+                status: 'detected',
+                tumorType: 'Meningioma',
+                confidence: 87.3
+            },
+            {
+                status: 'clear',
+                tumorType: null,
+                confidence: 94.8
+            }
+        ];
+
+        // File upload handling
+        function triggerUpload() {
+            document.getElementById('file-input').click();
+        }
+        function scrollToUpload() {
+    document.getElementById("upload-section").scrollIntoView({ 
+      behavior: "smooth" 
+    });
+  }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                startAnalysis(file);
+            }
+        }
+
+        // Drag and drop functionality
+        const uploadZone = document.getElementById('upload-zone');
+
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('drag-over');
+        });
+
+        uploadZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].type.startsWith('image/')) {
+                startAnalysis(files[0]);
+            }
+        });
+
+        function startAnalysis(file) {
+            // Hide initial sections
+            document.getElementById('hero-section').classList.add('hidden');
+            document.getElementById('features-section').classList.add('hidden');
+            document.getElementById('upload-section').classList.add('hidden');
+
+            // Show loading
+            document.getElementById('loading-section').classList.remove('hidden');
+
+            // Create image URL for preview
+            const imageUrl = URL.createObjectURL(file);
+            document.getElementById('mri-preview').src = imageUrl;
+
+            // Simulate analysis (3 seconds)
+            setTimeout(() => {
+                showResults(imageUrl);
+            }, 3000);
+        }
+
+        function showResults(imageUrl) {
+            // Hide loading
+            document.getElementById('loading-section').classList.add('hidden');
+
+            // Get random result
+            const result = mockResults[Math.floor(Math.random() * mockResults.length)];
+            currentResults = { ...result, imageUrl };
+
+            // Update results display
+            const statusIcon = document.getElementById('status-icon');
+            const statusBadge = document.getElementById('status-badge');
+            const tumorTypeRow = document.getElementById('tumor-type-row');
+            const tumorType = document.getElementById('tumor-type');
+            const confidenceFill = document.getElementById('confidence-fill');
+            const confidenceText = document.getElementById('confidence-text');
+
+            if (result.status === 'detected') {
+                statusIcon.textContent = '⚠️';
+                statusBadge.textContent = 'Tumor Detected';
+                statusBadge.className = 'status-badge status-detected';
+                tumorTypeRow.style.display = 'flex';
+                tumorType.textContent = result.tumorType;
+            } else {
+                statusIcon.textContent = '✅';
+                statusBadge.textContent = 'No Tumor Detected';
+                statusBadge.className = 'status-badge status-clear';
+                tumorTypeRow.style.display = 'none';
+            }
+
+            confidenceText.textContent = result.confidence + '%';
+
+            // Animate confidence bar
+            setTimeout(() => {
+                confidenceFill.style.width = result.confidence + '%';
+            }, 100);
+
+            // Show results
+            document.getElementById('results-section').classList.remove('hidden');
+        }
+
+        function downloadReport() {
+            if (!currentResults) return;
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Header
+            doc.setFontSize(20);
+            doc.text('MRI Analysis Report', 20, 30);
+
+            // Date
+            doc.setFontSize(12);
+            doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 45);
+
+            // Results
+            doc.setFontSize(14);
+            doc.text('Analysis Results:', 20, 65);
+
+            doc.setFontSize(12);
+            doc.text(`Status: ${currentResults.status === 'detected' ? 'Tumor Detected' : 'No Tumor Detected'}`, 30, 80);
+
+            if (currentResults.tumorType) {
+                doc.text(`Tumor Type: ${currentResults.tumorType}`, 30, 95);
+            }
+
+            doc.text(`Confidence Level: ${currentResults.confidence}%`, 30, 110);
+
+            // Disclaimer
+            doc.setFontSize(10);
+            doc.text('Note: This analysis is for educational purposes only.', 20, 140);
+            doc.text('Please consult with medical professionals for proper diagnosis.', 20, 150);
+
+            doc.save('MRI_Analysis_Report.pdf');
+        }
+
+        function resetAnalysis() {
+            // Show initial sections
+            document.getElementById('hero-section').classList.remove('hidden');
+            document.getElementById('features-section').classList.remove('hidden');
+            document.getElementById('upload-section').classList.remove('hidden');
+
+            // Hide other sections
+            document.getElementById('loading-section').classList.add('hidden');
+            document.getElementById('results-section').classList.add('hidden');
+
+            // Reset file input
+            document.getElementById('file-input').value = '';
+
+            // Clear results
+            currentResults = null;
+
+            // Reset confidence bar
+            document.getElementById('confidence-fill').style.width = '0%';
+        }
+    </script>
+</body>
+
+</html>
